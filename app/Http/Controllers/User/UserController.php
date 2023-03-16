@@ -33,7 +33,7 @@ class UserController extends Controller
         $kategori = Kategori::orderBy('id_kategori', 'desc')->get();
 
         // Arahkan ke file user/landing.blade.php
-        return view('User.landing', ['pengaduan' => $pengaduan, 'kategori' => $kategori]);
+        return view('User.lapor', ['pengaduan' => $pengaduan, 'kategori' => $kategori]);
     }
 
     public function formLogin()
@@ -136,7 +136,7 @@ class UserController extends Controller
             'username.required' => 'Username tidak boleh kosong',
             'username.unique' => 'Username sudah terdaftar',
             'password.required' => 'Password tidak boleh kosong',
-            'password.required' => 'Password minimal 6 karakter',
+            'password.min' => 'Password minimal 6 karakter',
             'telp.required' => 'Telepon tidak boleh kosong',
             'telp.min' => 'Telepon minimal 12 angka',
             'telp.max' => 'Telepon maximal 13 angka',
@@ -157,7 +157,7 @@ class UserController extends Controller
         // Pengecekan jika validate fails atau gagal
         if ($validate->fails())
         {
-            return redirect()->back()->withErrors($validate, $errors)->withInput();
+            return redirect()->back()->withErrors($validate)->withInput();
         }
 
         // Mengecek email

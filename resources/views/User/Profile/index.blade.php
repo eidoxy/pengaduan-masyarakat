@@ -72,7 +72,6 @@
         
     </div>
 
-    
 @endsection
 
 @include('User.Profile.edit')
@@ -81,6 +80,9 @@
     <script>
         function editData(url) {
             $('#editModal').modal('show');
+
+            $('#editModal form')[0].reset();
+            $('#editModal form').attr('action', url);
         }
     </script>
 @endsection

@@ -16,8 +16,8 @@
         <h2 class="section-title">Laporan Saya</h2>
         <p class="section-lead">Anda dapat melihat laporan Anda disni.</p>
         <div class="col-lg-12 col-12">
-            <div class="">
-                <div class="card profile-widget">
+            <div class="card">
+                <div class="profile-widget">
                     <div class="profile-widget-header">
                         {{-- <img alt="image" src="assets/img/avatar/avatar-1.png"
                             class="rounded-circle profile-widget-picture"> --}}
@@ -221,14 +221,7 @@
     
 @endsection
 
-@include('User.Profile.edit')
-
 @section('script')
-    <script>
-        function editData(url) {
-            $('#editModal').modal('show');
-        }
-    </script>
     <script>
         $(function(){
             var dtToday = new Date();
