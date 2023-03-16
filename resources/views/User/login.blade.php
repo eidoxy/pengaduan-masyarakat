@@ -170,6 +170,11 @@
                         {{ Session::get('pesan_daftar') }}
                     </div>
                 @endif
+                @if (Session::has('pesan_logout'))
+                    <div class="alert alert-danger mb-2">
+                        {{ Session::get('pesan_logout') }}
+                    </div>
+                @endif
                 <!-- Already Registered -->
                 <div class="row text-center mt-3">
                     <div class="col-lg-6 col-12">

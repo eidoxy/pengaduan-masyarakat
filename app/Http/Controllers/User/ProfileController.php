@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Masyarakat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\ValidationException;
 use Illuminate\Support\Facades\Validator;
 
@@ -108,8 +109,10 @@ class ProfileController extends Controller
         ]);
 
         // Tampilan edit ata masyarakat
-        return redirect()->route('pekat.logout', ['masyarakat' => $masyarakat])->with('pesan_logout', 'Silahkan login kembali');
-        // dd($masyarakat);
+        // return redirect()->route('pekat.logout', ['masyarakat' => $masyarakat])->view('User.lapor')->with('pesan_logout', 'Silahkan login kembali');
+        Auth::guard('masyarakat')->logout();
+
+        return redirect()->route('pekat.formLogin')->with('pesan_logout', 'Kamu telah logout, silahkan login kembali');
     }
 
     /**

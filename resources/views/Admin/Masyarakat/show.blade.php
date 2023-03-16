@@ -71,17 +71,7 @@
                                     <td>:</td>
                                     <td>{{ $masyarakat->telp }}</td>
                                 </tr>
-                                {{-- <tr>
-                                    <th>Hapus Masyarakat</th>
-                                    <td>:</td>
-                                    <td>
-                                        <form action="{{ route('masyarakat.destroy', $masyarakat->nik) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger" style="width: 100%" onclick="return confirm('APAKAH YAKIN?')">HAPUS</button>
-                                        </form>
-                                    </td>
-                                </tr> --}}
+                                
                             </tbody>
                         </table>
                     </div>

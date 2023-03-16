@@ -1896,6 +1896,14 @@ h6 .badge {
   z-index: -1;
 }
 
+.navbar-bg2 {
+  content: " ";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
 .navbar {
   align-items: center;
 }

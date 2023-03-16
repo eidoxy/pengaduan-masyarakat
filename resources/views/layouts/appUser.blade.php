@@ -27,16 +27,44 @@
     <div id="app">
         <div class="main-wrapper main-wrapper-1">
             {{-- Navbar --}}
-            @include('layouts.navbar')
+            {{-- @include('layouts.navbar') --}}
+            <div class="navbar-bg"></div>
+            <nav class="navbar navbar-expand-lg main-navbar">
+                <form class="form-inline mr-auto">
+                    <ul class="navbar-nav mr-3">
+                        <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+                        <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i
+                                    class="fas fa-search"></i></a></li>
+                    </ul>
+                </form>
+                <ul class="navbar-nav navbar-right">
+
+                    <li class="dropdown"><a href="#" data-toggle="dropdown"
+                            class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                            @if(Auth::guard('masyarakat')->check())
+                            <div class="d-sm-none d-lg-inline-block">{{ Auth::guard('masyarakat')->user()->nama}}</div>
+                            @endif
+
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            @if(Auth::guard('masyarakat')->check())
+                            <a href="{{ route('pekat.logout') }}" class="dropdown-item has-icon text-danger">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                            @endif
+                        </div>
+                    </li>
+                </ul>
+            </nav>
 
             {{-- Sidebar --}}
             <div class="main-sidebar sidebar-style-2" tabindex="1" style="overflow: hidden; outline: none;">
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
-                        <a href="index.html">KELMAS</a>
+                        <a href="/">KELMAS</a>
                     </div>
                     <div class="sidebar-brand sidebar-brand-sm">
-                        <a href="index.html">KM</a>
+                        <a href="/">KM</a>
                     </div>
                     <ul class="sidebar-menu">
                         @if (Auth::guard('masyarakat')->check())

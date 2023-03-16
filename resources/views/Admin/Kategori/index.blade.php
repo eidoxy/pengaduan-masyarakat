@@ -53,7 +53,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <center>
-                                        <button type="submit" class="btn btn-danger" onclick="return confirm('APAKAH YAKIN?')">HAPUS</button>
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('APAKAH YAKIN?')">Hapus</button>
                                     </center>
                                 </form>
                             </td>

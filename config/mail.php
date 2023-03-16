@@ -40,7 +40,7 @@ return [
             'port' => env('MAIL_PORT', 587),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
             'username' => env('MAIL_USERNAME', 'adriansondang@gmail.com'),
-            'password' => env('MAIL_PASSWORD', 'adrian123'),
+            'password' => env('MAIL_PASSWORD', 'xyukbdbirycwpbgc'),
             'timeout' => null,
             'auth_mode' => null,
         ],

@@ -137,6 +137,7 @@ class UserController extends Controller
             'username.unique' => 'Username sudah terdaftar',
             'password.required' => 'Password tidak boleh kosong',
             'password.min' => 'Password minimal 6 karakter',
+            'password.regex' => 'Password harus mengandung 1 huruf kecil, 1 huruf kapital, 1 angka, dan 1 spesial karakter',
             'telp.required' => 'Telepon tidak boleh kosong',
             'telp.min' => 'Telepon minimal 12 angka',
             'telp.max' => 'Telepon maximal 13 angka',
@@ -149,7 +150,14 @@ class UserController extends Controller
             'nama' => ['required', 'string', 'regex:/^[a-zA-Z]+$/u'],
             'email' => ['required', 'email', 'string', 'unique:masyarakat'],
             'username' => ['required', 'string', 'regex:/^\S*$/u', 'unique:masyarakat'],
-            'password' => ['required', 'min:6'],
+            'password' => [
+                            'required',
+                            'min:6',
+                            'regex:/[a-z]/',      // must contain at least one lowercase letter
+                            'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                            'regex:/[0-9]/',      // must contain at least one digit
+                            'regex:/[@$!%*#?&]/'  // must contain a special character
+                        ],
             'telp' => ['required', 'min:12', 'max:13'],
             'g-recaptcha-response' => 'recaptcha'
         ], $errors);
@@ -210,7 +218,7 @@ class UserController extends Controller
         // Pengecekan jika tidak ada masyarakat yang sedang login
         if (!Auth::guard('masyarakat')->user())
         {
-            return redirect()->route('pekat.formLogin')->with(['pesan' => 'Login dibutuhkan!'])->withInput();
+            return redirect()->route('pekat.formLogin')->with(['pesan' => 'Login dibutuhkan!']);
         }
 
         // Masukkan semua data yg dikirim ke variable $data 

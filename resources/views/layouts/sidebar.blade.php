@@ -1,10 +1,10 @@
 <div class="main-sidebar sidebar-style-2" tabindex="1" style="overflow: hidden; outline: none;">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="index.html">KELMAS</a>
+            <a href="/">KELMAS</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="index.html">KM</a>
+            <a href="/">KM</a>
         </div>
         <ul class="sidebar-menu">
             @if (Auth::guard('admin')->user()->level == 'admin')

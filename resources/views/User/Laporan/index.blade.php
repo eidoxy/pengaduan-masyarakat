@@ -221,7 +221,7 @@
     
 @endsection
 
-@section('script')
+@section('js')
     <script>
         $(function(){
             var dtToday = new Date();

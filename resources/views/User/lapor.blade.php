@@ -13,24 +13,12 @@
 
     <!-- CSS Libraries -->
     <style>
-        .header .wave {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100px;
-            background: url(../images/wave.png);
-            background-size: 1000px 100px;
-        }
-
-        .header .wave1 {
-            -webkit-animation: animate 30s linear infinite;
-            animation: animate 30s linear infinite;
-            z-index: 999;
-            opacity: 1;
-            -webkit-animation-delay: 0s;
-            animation-delay: 0s;
-            bottom: 0;
+        .notification {
+            padding: 14px;
+            text-align: center;
+            background: #f4b704;
+            color: #fff;
+            font-weight: 300;
         }
     </style>
 
@@ -41,74 +29,124 @@
 </head>
 
 <body class="layout-3">
+
+    {{-- Verifikasi Email --}}
+    @if (Auth::guard('masyarakat')->check() && Auth::guard('masyarakat')->user()->email_verified_at == null)
+    <div class="row">
+        <div class="col">
+            <div class="notification">Konfirmasi email <span class="font-weight-bold">{{ Auth::guard('masyarakat')->user()->email }}</span> untuk melindungi akun Anda.
+                <form action="{{ route('pekat.sendVerification') }}" method="POST" style="display: inline-block">
+                    @csrf
+                    <button type="submit" class="btn btn-white">Verifikasi Sekarang</button>
+                </form>
+                <!-- <a href="https://www.youtube.com/watch?v=KOaeDHeJ80I&ab_channel=Trplea" class="btn btn-white">Verifikasi Sekarang</a> -->
+            </div>
+        </div>
+    </div>
+    @endif
+    {{-- End Verifikasi Email --}}
+
+    {{-- Content --}}
     <div id="app">
-        <div class="main-wrapper container">
-            <div class="navbar-bg" style="height: 80px;"></div>
+        <div class="main-wrapper container" style="width: 55rem;">
+            <div class="navbar-bg" style="height: 400px;"></div>
+            <div class="images navbar-bg2" style="width: 120%; margin-top: 360px;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#6777ef" fill-opacity="1" d="M0,96L30,85.3C60,75,120,53,180,58.7C240,64,300,96,360,96C420,96,480,64,540,53.3C600,43,660,53,720,64C780,75,840,85,900,106.7C960,128,1020,160,1080,170.7C1140,181,1200,171,1260,149.3C1320,128,1380,96,1410,80L1440,64L1440,0L1410,0C1380,0,1320,0,1260,0C1200,0,1140,0,1080,0C1020,0,960,0,900,0C840,0,780,0,720,0C660,0,600,0,540,0C480,0,420,0,360,0C300,0,240,0,180,0C120,0,60,0,30,0L0,0Z"></path></svg>
+            </div>
+            <div class="images navbar-bg2" style="width: 140%; margin-top: 400px;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#6777ef" fill-opacity="0.6" d="M0,128L30,138.7C60,149,120,171,180,181.3C240,192,300,192,360,192C420,192,480,192,540,213.3C600,235,660,277,720,266.7C780,256,840,192,900,160C960,128,1020,128,1080,149.3C1140,171,1200,213,1260,202.7C1320,192,1380,128,1410,96L1440,64L1440,0L1410,0C1380,0,1320,0,1260,0C1200,0,1140,0,1080,0C1020,0,960,0,900,0C840,0,780,0,720,0C660,0,600,0,540,0C480,0,420,0,360,0C300,0,240,0,180,0C120,0,60,0,30,0L0,0Z"></path></svg>
+            </div>
+            <div class="images navbar-bg2" style="width: 120%; margin-top: 440px;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#6777ef" fill-opacity="0.2" d="M0,256L30,245.3C60,235,120,213,180,218.7C240,224,300,256,360,245.3C420,235,480,181,540,170.7C600,160,660,192,720,202.7C780,213,840,203,900,170.7C960,139,1020,85,1080,53.3C1140,21,1200,11,1260,32C1320,53,1380,107,1410,133.3L1440,160L1440,0L1410,0C1380,0,1320,0,1260,0C1200,0,1140,0,1080,0C1020,0,960,0,900,0C840,0,780,0,720,0C660,0,600,0,540,0C480,0,420,0,360,0C300,0,240,0,180,0C120,0,60,0,30,0L0,0Z"></path></svg>
+            </div>
+
+            {{-- Navbar --}}
             <nav class="navbar navbar-expand-lg main-navbar container mt-1">
                 <a href="index.html" class="navbar-brand sidebar-gone-hide">KELMAS</a>
                 <a href="#" class="nav-link sidebar-gone-show" data-toggle="sidebar"><i class="fas fa-bars"></i></a>
                 <ul class="navbar-nav navbar-right ml-auto">
+
                     @if(Auth::guard('masyarakat')->check())
                     <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                             <img alt="image" src="assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-                            <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div>
+                            <div class="d-sm-none d-lg-inline-block">{{ Auth::guard('masyarakat')->user()->nama }}</div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a href="features-profile.html" class="dropdown-item has-icon">
+                            <a href="{{ route('pekat.laporan') }}" class="dropdown-item has-icon">
+                                <i class="fas fa-clipboard-list"></i> Laporan Saya
+                            </a>
+                            <a href="{{ route('profile.index') }}" class="dropdown-item has-icon">
                                 <i class="far fa-user"></i> Profile
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item has-icon text-danger">
+                            <a href="{{ route('pekat.logout') }}" class="dropdown-item has-icon text-danger">
                                 <i class="fas fa-sign-out-alt"></i> Logout
                             </a>
                         </div>
                     </li>
+
                     @else
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active">
                                 <div class="btn btn-outline-primary">
-                                    <a class="nav-link" href="#">MASUK</a>
+                                    <a class="nav-link" href="{{ route('pekat.formLogin') }}">MASUK</a>
                                 </div>
                             </li>
                             <li class="nav-item">
                                 <div class="btn btn-outline-light">
-                                    <a class="nav-link" href="#">DAFTAR</a>
+                                    <a class="nav-link" href="{{ route('pekat.formRegister') }}">DAFTAR</a>
                                 </div>
                             </li>
                         </ul>
                     </div>
                     @endauth
+
                 </ul>
             </nav>
+            {{-- End Navbar --}}
 
-            <!-- Main Content -->
+            {{-- Main Content --}}
             <div class="main-content">
-                <section class="section">
-                    <div class="section-header" style="display: block;">
+                <section class="section mb-5">
+                    <div class="section-header shadow" style="display: block;">
                         <div class="text-center">
                             <h1 class="medium mt-3">LAYANAN PENGADUAN MASYARAKAT</h1>
                             <p class="mb-3">Sampaikan laporan Anda langsung kepada yang pemerintah berwenang</p>
                         </div>
-    <div class="wave wave1"></div>
-
                     </div>
 
-                    <div class="section-body">
+                    <div class="section-body shadow">
                         <div class="card">
                             <div class="profile-widget">
                                 <div class="profile-widget-description">
                                     <div class="container">
+
+                                        {{-- Alert --}}
                                         @if ($errors->any())
                                         @foreach ($errors->all() as $error)
                                         <div class="alert alert-danger">{{ $error }}</div>
                                         @endforeach
                                         @endif
-            
+
                                         @if (Session::has('pengaduan'))
                                         <div class="alert alert-{{ Session::get('type') }}">{{ Session::get('pengaduan') }}</div>
                                         @endif
-            
+
+                                        @if (Session::has('pesan'))
+                                            <div class="alert alert-success mb-2">
+                                                {{ Session::get('pesan') }} {{ Auth::guard('masyarakat')->user()->nama }} 
+                                            </div>
+                                        @endif
+
+                                        @if (Session::has('pesan_logout'))
+                                            <div class="alert alert-danger mb-2">
+                                                {{ Session::get('pesan_logout') }}
+                                            </div>
+                                        @endif
+                                        {{-- End Alert --}}
+
+                                        {{-- Laporan --}}
                                         <div class="card mb-3 shadow-sm">
                                             <div class="card-header">
                                                 <h4>
@@ -116,7 +154,7 @@
                                                 </h4>
                                             </div>
                                             <div class="card-body">
-                                                <form action="{{ route('pekat.store') }}" method="POST" enctype="multipart/form-data">
+                                                <form class="form" action="{{ route('pekat.storeLapor') }}" method="POST" enctype="multipart/form-data">
                                                     @csrf
             
                                                     <div class="form-group">
@@ -170,18 +208,22 @@
                                                 </form>
                                             </div>
                                         </div>
+                                        {{-- End Laporan --}}
+
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
                     </div>
-                    
                 </section>
             </div>
+            {{-- End Main Content --}}
         </div>
 
-        <div class="card" style="background-color: #6777ef; width: 100%;">
+        <hr>
+
+        {{-- Counts Laporan --}}
+        <div class="card mt-4" style="background-color: #6777ef; width: 100%;">
             <div class="m-5">
                 <div class="text-center">
                     <h2 class="text-white mt-3">Jumlah Laporan</h2>
@@ -189,7 +231,11 @@
                 </div>
             </div>
         </div>
+        {{-- End Counts Laporan --}}
 
+        <hr>
+
+        {{-- Footer --}}
         <footer class="main-footer">
             <div class="text-center">
                 Copyright &copy; 2023 <div class="bullet"></div> By Adrian</a>
@@ -198,9 +244,10 @@
                 
             </div>
         </footer>
-    </div>
-    
+        {{-- End Footer --}}
 
+    </div>
+    {{-- End Content --}}
 
     <!-- General JS Scripts -->
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
@@ -212,6 +259,23 @@
     <script src="{{ asset('assets/js/stisla.js') }}"></script>
 
     <!-- JS Libraies -->
+    <script>
+        $(function(){
+            var dtToday = new Date();
+    
+            var month = dtToday.getMonth() - 1; // pakai (+ 2) agar bisa memilih tanggal sekarang.
+            var day = dtToday.getDate();
+            var year = dtToday.getFullYear();
+            if(month < 10)
+                month = '0' + month.toString();
+            if(day < 10)
+                day = '0' + day.toString();
+    
+            var minDate = year + '-' + month + '-' + day;
+    
+            $('#tgl_kejadian').attr('min', minDate);
+        });
+    </script>
 
     <!-- Page Specific JS File -->
 
