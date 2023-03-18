@@ -21,7 +21,6 @@ class CreatePengaduansTable extends Migration
             $table->text('isi_laporan');
             $table->dateTime('tgl_kejadian');
             $table->text('lokasi_kejadian');
-            // $table->enum('kategori_kejadian', ['agama', 'hukum', 'lingkungan', 'sosial']);
             $table->unsignedBigInteger('id_kategori');
             $table->string('foto');
             $table->enum('status', ['0', 'proses', 'selesai']);
@@ -29,7 +28,6 @@ class CreatePengaduansTable extends Migration
             $table->timestamps();
 
             $table->foreign('nik')->references('nik')->on('masyarakat');
-            // $table->foreign('id_kategori')->references('id_kategori')->on('kategori');
         });
     }
 

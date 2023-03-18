@@ -7,6 +7,7 @@
     <title>KELMAS - Login</title>
     <!-- General CSS Files -->
     <link href="{{ asset('images/favicon.svg') }}" rel="icon">
+    <link rel="stylesheet" href="{{ asset('assets/css/iziToast.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.5.0/css/all.min.css" integrity="sha512-QfDd74mlg8afgSqm3Vq2Q65e9b3xMhJB4GZ9OcHDVy1hZ6pqBJPWWnMsKDXM7NINoKqJANNGBuVRIpIJ5dogfA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -114,7 +115,7 @@
 
             <!-- Registeration Form -->
             <div class="col-md-5 mr-auto col-lg-6">
-                <form action="{{ route('pekat.login') }}" method="POST">
+                <form class="form" action="{{ route('pekat.login') }}" method="POST">
                 @csrf
                     <div class="row">
 
@@ -192,6 +193,7 @@
 
     <!-- General JS Scripts -->
     <script src="{{ asset('assets/js/jquery-3.1.1.slim.min.js') }}"></script>
+    <script src="{{ asset('assets/js/iziToast.min.js') }}" type="text/javascript"></script>
     <script>
         // For Demo Purpose [Changing input group text on focus]
         $(function () {
@@ -202,6 +204,28 @@
                 $(this).parent().find('.input-group-text').css('border-color', '#ced4da');
             });
         });
+
+        $('.form').on('submit', function(e){
+            if(! e.preventDefault()){
+                $.post($('.form form').attr('action'), $('.form form').serialize())
+                .done((response) => {
+                    $('.form')[0].reset();
+                    iziToast.success({
+                        title: 'Sukses',
+                        message: 'Data berhasil disimpan',
+                        position: 'topRight'
+                    })
+                })
+                .fail((errors) => {
+                    iziToast.error({
+                        title: 'Gagal',
+                        message: 'Data gagal disimpan',
+                        position: 'topRight'
+                    })
+                    return;
+                })
+            }
+        })
     </script>
 </body>
 </html>

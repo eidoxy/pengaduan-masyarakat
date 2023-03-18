@@ -8,6 +8,7 @@
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/iziToast.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.5.0/css/all.min.css" 
     integrity="sha512-QfDd74mlg8afgSqm3Vq2Q65e9b3xMhJB4GZ9OcHDVy1hZ6pqBJPWWnMsKDXM7NINoKqJANNGBuVRIpIJ5dogfA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -257,6 +258,7 @@
     <script src="{{ asset('assets/js/jquery.nicescroll.min.js') }}"></script>
     <script src="{{ asset('assets/js/moment.min.js') }}"></script>
     <script src="{{ asset('assets/js/stisla.js') }}"></script>
+    <script src="{{ asset('assets/js/iziToast.min.js') }}" type="text/javascript"></script>
 
     <!-- JS Libraies -->
     <script>

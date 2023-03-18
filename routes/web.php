@@ -18,7 +18,7 @@ use App\Http\Controllers\User\UserController;
 
 use Illuminate\Support\Facades\Route;
 
-// Auth::routes();
+Auth::routes();
 
 Route::get('/', [UserController::class, 'index'])->name('pekat.index');
 
