@@ -27,7 +27,7 @@ Route::get('/masyarakat/verify/{nik}', [EmailController::class, 'verify'])->name
 
 Route::middleware(['isMasyarakat'])->group(function () {
     // Profile
-    Route::resource('profile', ProfileController::class);
+    Route::resource('profil', ProfileController::class);
     
     // Pengaduan
     Route::post('/store', [UserController::class, 'storePengaduan'])->name('pekat.store');

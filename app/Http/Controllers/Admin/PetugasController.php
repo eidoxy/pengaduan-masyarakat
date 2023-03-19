@@ -30,18 +30,40 @@ class PetugasController extends Controller
         // Mengambil data sesuai dengan input
         $data = $request->all();
 
+         // Membuat custom error message
+        $errors = [
+            'nama.required' => 'Nama tidak boleh kosong',
+            'nama.regex' => 'Nama tidak boleh mengandung angka',
+            'username.required' => 'Username tidak boleh kosong',
+            'username.unique' => 'Username sudah terdaftar',
+            'password.required' => 'Password tidak boleh kosong',
+            'password.min' => 'Password minimal 6 karakter',
+            'password.regex' => 'Password harus mengandung 1 huruf kecil, 1 huruf kapital, 1 angka, dan 1 spesial karakter',
+            'telp.required' => 'Telepon tidak boleh kosong',
+            'telp.min' => 'Telepon minimal 12 angka',
+            'telp.max' => 'Telepon maximal 13 angka',
+        ];
+
         // Membuat data di database sesuai dengan input
         $validate = Validator::make($data, [
             'nama_petugas' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'unique:petugas'],
-            'password' => ['required', 'string', 'min:6'],
-            'telp' => ['required'],
+            'username' => ['required', 'string', 'regex:/^[a-zA-Z]+$/u', 'unique:petugas'],
+            'password' => [
+                'required',
+                'string',
+                'min:6',
+                'regex:/[a-z]/',      // must contain at least one lowercase letter
+                'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                'regex:/[0-9]/',      // must contain at least one digit
+                'regex:/[@$!%*#?&]/'  // must contain a special character
+            ],
+            'telp' => ['required', 'min:12', 'max:13'],
             'level' => ['required', 'in:admin,petugas'],
-        ]);
+        ], $errors);
 
         // Kondisi jika validate eror
         if ($validate->fails()) {
-            return redirect()->back()->withErrors($validate);
+            return redirect()->back()->withErrors($validate)->withInput();
         }
 
         // Mengambil nama username dari input
@@ -49,7 +71,7 @@ class PetugasController extends Controller
 
         // Kondisi jika username sudah ada
         if ($username) {
-            return redirect()->back()->with(['notif' => 'Username sudah digunakan!']);
+            return redirect()->back()->with(['notif' => 'Username sudah digunakan!'])->withInput();
         }
 
         // Kondisi jika username tidak ada
@@ -62,7 +84,7 @@ class PetugasController extends Controller
         ]);
 
         // Kembali ke tampilan
-        return redirect()->route('petugas.index');
+        return redirect()->route('petugas.index')->with(['pesan_petugas' => 'Akun petugas telah dibuat']);
     }
 
     public function edit($id_petugas)
@@ -91,7 +113,7 @@ class PetugasController extends Controller
         ]);
 
         // Tampilan edit ata petugas
-        return redirect()->route('petugas.index');
+        return redirect()->route('petugas.index')->with(['pesan_update' => 'Profile petugas telah di update']);
     }
 
     public function destroy($id_petugas)
@@ -103,9 +125,9 @@ class PetugasController extends Controller
         if (!$tanggapan) {
             $petugas->delete();
 
-            return redirect()->route('petugas.index');
+            return redirect()->route('petugas.index')->with(['notif_sukses' => 'Petugas berhasil di hapus']);
         } else {
-            return redirect()->back()->with(['notif' => 'Can\'t delete. Petugas has a relationship!']);
+            return redirect()->back()->with(['notif_gagal' => 'Tidak dapat dihapus, Petugas ini memiliki relationship!']);
         }
     }
 }

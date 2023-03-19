@@ -36,10 +36,10 @@
 
         <li class="dropdown"><a href="#" data-toggle="dropdown"
                 class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                {{-- <img alt="image" src="assets/img/avatar/avatar-1.png" class="rounded-circle mr-1"> --}}
                 @if(Auth::guard('admin')->check())
                 <div class="d-sm-none d-lg-inline-block">{{ Auth::guard('admin')->user()->nama_petugas}}</div>
                 @elseif(Auth::guard('masyarakat')->check())
+                <img alt="image" src="{{ asset('foto/' . Auth::guard('masyarakat')->user()->foto) }}" class="rounded-circle mr-1">
                 <div class="d-sm-none d-lg-inline-block">{{ Auth::guard('masyarakat')->user()->nama}}</div>
                 @endif
 

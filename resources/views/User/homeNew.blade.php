@@ -109,13 +109,6 @@
                                 Oleh karena itu, untuk mencapai visi dalam good governance maka perlu untuk mengintegrasikan sistem pengelolaan pengaduan pelayanan publik dalam satu pintu. 
                                 Tujuannya, masyarakat memiliki satu saluran pengaduan secara Nasional.
                             </p>
-                            {{-- <div class="text-center text-lg-start">
-                                <a href="#"
-                                    class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center">
-                                    <span>Read More</span>
-                                    <i class="bi bi-arrow-right"></i>
-                                </a>
-                            </div> --}}
                         </div>
                     </div>
 
@@ -126,15 +119,15 @@
                 </div>
             </div>
 
-        </section><!-- End About Section -->
+        </section><!-- End About Alur Section -->
 
-        <!-- ======= Tata Cata Section ======= -->
+        <!-- ======= Alur Section ======= -->
         <section id="services" class="services">
             <div class="container" data-aos="fade-up">
 
                 <header class="section-header">
-                    <h2>Proses Lapor</h2>
-                    <p>Proses Lapor Pengaduan Masyarakat</p>
+                    <h2>Alur Lapor</h2>
+                    <p>Alur Lapor Pengaduan Masyarakat</p>
                 </header>
 
                 <div class="col-lg-12 d-flex align-items-stretch">
@@ -171,65 +164,7 @@
                 </div>
 
             </div>
-        </section><!-- End Tata Cara Section-->
-
-        <!-- ======= Counts Section ======= -->
-        {{-- <section id="counts" class="counts">
-            <div class="container" data-aos="fade-up">
-
-                <div class="row gy-4">
-
-                    <div class="col-lg-12 col-md-12">
-                        <div class="d-block count-box">
-                            <div class="text-center">
-                                <span data-purecounter-start="0" data-purecounter-end="232"
-                                    data-purecounter-duration="1" class="purecounter"></span>
-                                <p>Happy Clients</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </section> --}}
-        <!-- End Counts Section -->
-
-        <!-- ======= Clients Section ======= -->
-        {{-- <section id="clients" class="clients">
-
-            <div class="container" data-aos="fade-up">
-
-                <header class="section-header">
-                    <h2>Our Clients</h2>
-                    <p>Temporibus omnis officia</p>
-                </header>
-
-                <div class="clients-slider swiper">
-                    <div class="swiper-wrapper align-items-center">
-                        <div class="swiper-slide"><img src="assets/img/clients/client-1.png" class="img-fluid" alt="">
-                        </div>
-                        <div class="swiper-slide"><img src="assets/img/clients/client-2.png" class="img-fluid" alt="">
-                        </div>
-                        <div class="swiper-slide"><img src="assets/img/clients/client-3.png" class="img-fluid" alt="">
-                        </div>
-                        <div class="swiper-slide"><img src="assets/img/clients/client-4.png" class="img-fluid" alt="">
-                        </div>
-                        <div class="swiper-slide"><img src="assets/img/clients/client-5.png" class="img-fluid" alt="">
-                        </div>
-                        <div class="swiper-slide"><img src="assets/img/clients/client-6.png" class="img-fluid" alt="">
-                        </div>
-                        <div class="swiper-slide"><img src="assets/img/clients/client-7.png" class="img-fluid" alt="">
-                        </div>
-                        <div class="swiper-slide"><img src="assets/img/clients/client-8.png" class="img-fluid" alt="">
-                        </div>
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-            </div>
-
-        </section> --}}
-        <!-- End Clients Section -->
+        </section><!-- End Alur Lapor Section-->
 
     </main><!-- End #main -->
 
@@ -275,16 +210,14 @@
                             <li><i class="bi bi-chevron-right"></i> <a href="/">Home</a></li>
                             <li><i class="bi bi-chevron-right"></i> <a href="#about">Tentang Kami</a></li>
                             <li><i class="bi bi-chevron-right"></i> <a href="#">Tutorial Video</a></li>
-                            {{-- <li><i class="bi bi-chevron-right"></i> <a href="#">Ketentuan Layanan</a></li>
-                            <li><i class="bi bi-chevron-right"></i> <a href="#">Privacy policy</a></li> --}}
                         </ul>
                     </div>
 
                     <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
                         <h4>Hubungi Kami</h4>
                         <p>
-                            Jl Siwalanpanji <br>
-                            Sidoarjo, Buduran<br>
+                            Jl Surowongso <br>
+                            Sidoarjo, Gedangan<br>
                             Jawa Timur <br><br>
                             <strong>Phone:</strong> +62 895 3503 53300<br>
                             <strong>Email:</strong> kelmas@pengaduan.com<br>

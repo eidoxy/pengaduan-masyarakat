@@ -99,12 +99,31 @@ class ProfileController extends Controller
         // // Mengabmil data masyarakat dari database
         $masyarakat = Masyarakat::find($nik);
 
+        // Validate foto yang bisa di upload
+        $request->validate([
+            'foto' => 'mimes:png,jp,jpeg'
+        ]);
+
+        // Statement jika user mengupdate foto
+        if ($request->hasFile('foto')){
+            $foto = $request->file('foto');    // mengambil data foto dari request
+            $ubah_nama_foto = time() . $foto->getClientOriginalName(); // mengubah nama foto dari waktu + nama asli
+            $foto->move('foto', $ubah_nama_foto); // pindah
+
+            $masyarakat->foto = $ubah_nama_foto;
+            $masyarakat->save();
+        }
+
+        if ($request->filled('password')){
+            $masyarakat->password = bcrypt($request->password);
+            $masyarakat->save();
+        }
+
         // Mengubah data masyarakat dengan data dari input
         $masyarakat->update([
             'nama' => $request['nama'],
             'email' => $request['email'],
             'username' => $request['username'],
-            'password' => Hash::make($request['password']),
             'telp' => $request['telp'],
         ]);
 
@@ -112,7 +131,7 @@ class ProfileController extends Controller
         // return redirect()->route('pekat.logout', ['masyarakat' => $masyarakat])->view('User.lapor')->with('pesan_logout', 'Silahkan login kembali');
         Auth::guard('masyarakat')->logout();
 
-        return redirect()->route('pekat.formLogin')->with('pesan_logout', 'Kamu telah logout, silahkan login kembali');
+        return redirect()->route('pekat.formLogin')->with('pesan_update', 'Data sudah di update, silahkan login kembali');
     }
 
     /**

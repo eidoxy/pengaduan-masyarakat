@@ -61,5 +61,26 @@
         $(document).ready(function() {
             $('#masyarakatTable').DataTable();
         } );
+
+        
+        @if (Session::has('notif_sukses'))
+        iziToast.show({
+                title: 'Berhasil',
+                message: 'Masyarakat berhasil di hapus',
+                position: 'topRight',
+                color: 'red',
+                layout: 2
+            });
+        @endif
+
+        @if (Session::has('notif_gagal'))
+        iziToast.show({
+                title: '!!!',
+                message: 'Tidak dapat dihapus, masyarakat memiliki relationship!',
+                position: 'topRight',
+                color: 'red',
+                layout: 2
+            });
+        @endif
     </script>
 @endsection

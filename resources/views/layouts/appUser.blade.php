@@ -43,6 +43,7 @@
                     <li class="dropdown"><a href="#" data-toggle="dropdown"
                             class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                             @if(Auth::guard('masyarakat')->check())
+                            <img alt="image" src="{{ asset('foto/' . Auth::guard('masyarakat')->user()->foto) }}" class="rounded-circle mr-1">
                             <div class="d-sm-none d-lg-inline-block">{{ Auth::guard('masyarakat')->user()->nama}}</div>
                             @endif
 
@@ -73,8 +74,8 @@
                         <li class="{{ request()->is('laporan') ? 'active' : '' }}">
                             <a class="nav-link" href="/laporan"><i class="fas fa-clipboard-list"></i><span>Laporan</span></a>
                         </li>
-                        <li class="{{ request()->is('profile') ? 'active' : '' }}">
-                            <a class="nav-link" href="/profile"><i class="fas fa-user"></i><span>Profile</span></a>
+                        <li class="{{ request()->is('profil') ? 'active' : '' }}">
+                            <a class="nav-link" href="/profil"><i class="fas fa-user"></i><span>Profile</span></a>
                         </li>
                         @endif
                     </ul>

@@ -162,17 +162,36 @@
                             </div>
                             <button type="submit" class="btn btn-purple">KIRIM</button>
                         </form>
-    
-                        @if (Session::has('status'))
-                            <div class="alert alert-success mt-2">
-                                {{ Session::get('status') }}
-                            </div>
-                        @endif
-    
+                        
                     </div>
     
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        @if (Session::has('status_selesai'))
+        iziToast.show({
+                title: 'Tanggapan',
+                message: 'Laporan Telah Selesai!',
+                position: 'topRight',
+                color: 'green',
+                layout: 2
+            });
+        @endif
+
+
+        @if (Session::has('status_proses'))
+        iziToast.show({
+                title: 'Tanggapan',
+                message: 'Laporan Diproses!',
+                position: 'topRight',
+                color: 'yellow',
+                layout: 2
+            });
+        @endif
+    </script>
 @endsection

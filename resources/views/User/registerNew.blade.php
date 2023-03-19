@@ -28,26 +28,6 @@
             border-width: 2px;
         }
     
-        .btn-facebook {
-            background: #405D9D;
-            border: none;
-        }
-    
-        .btn-facebook:hover, .btn-facebook:focus {
-            background: #314879;
-        }
-    
-        .btn-twitter {
-            background: #42AEEC;
-            border: none;
-        }
-    
-        .btn-twitter:hover, .btn-twitter:focus {
-            background: #1799e4;
-        }
-    
-    
-    
         /*
         *
         * ==========================================
@@ -115,6 +95,11 @@
 
             <!-- Registeration Form -->
             <div class="col-md-7 col-lg-6 ml-auto">
+                @if (Session::has('pesan'))
+                    <div class="alert alert-danger my-2">
+                        {{ Session::get('pesan') }}
+                    </div>
+                @endif
                 <form action="{{ route('pekat.register') }}" method="POST">
                 @csrf
                     <div class="row">
@@ -126,7 +111,7 @@
                                     <i class="fa fa-hashtag text-muted"></i>
                                 </span>
                             </div>
-                            <input id="nik" type="number" value="{{ old('nik') }}" name="nik" placeholder="NIK" class="form-control bg-white border-left-0 border-md  @error('nik') is-invalid @enderror">
+                            <input id="nik" type="text" value="{{ old('nik') }}" name="nik" placeholder="NIK" class="form-control bg-white border-left-0 border-md  @error('nik') is-invalid @enderror" maxlength="16" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required>
                             @error('nik')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -141,7 +126,7 @@
                                     <i class="fa fa-user text-muted"></i>
                                 </span>
                             </div>
-                            <input id="nama" type="text" value="{{ old('nama') }}" name="nama" placeholder="Nama" class="form-control bg-white border-left-0 border-md @error('nama') is-invalid @enderror">
+                            <input id="nama" type="text" value="{{ old('nama') }}" name="nama" placeholder="Nama" class="form-control bg-white border-left-0 border-md @error('nama') is-invalid @enderror" required>
                             @error('nama')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -156,7 +141,7 @@
                                     <i class="fa fa-envelope text-muted"></i>
                                 </span>
                             </div>
-                            <input id="email" type="email" value="{{ old('email') }}" name="email" placeholder="Email" class="form-control bg-white border-left-0 border-md @error('email') is-invalid @enderror">
+                            <input id="email" type="email" value="{{ old('email') }}" name="email" placeholder="Email" class="form-control bg-white border-left-0 border-md @error('email') is-invalid @enderror" required>
                             @error('email')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -171,7 +156,7 @@
                                     <i class="fa fa-book text-muted"></i>
                                 </span>
                             </div>
-                            <input id="username" type="text" value="{{ old('username') }}" name="username" placeholder="Username" class="form-control bg-white border-left-0 border-md @error('username') is-invalid @enderror">
+                            <input id="username" type="text" value="{{ old('username') }}" name="username" placeholder="Username" class="form-control bg-white border-left-0 border-md @error('username') is-invalid @enderror" required>
                             @error('username')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -186,7 +171,7 @@
                                     <i class="fa fa-phone-square text-muted"></i>
                                 </span>
                             </div>
-                            <input id="telp" type="number" value="{{ old('telp') }}" name="telp" placeholder="No. Telp" class="form-control bg-white border-md border-left-0 pl-3 @error('telp') is-invalid @enderror">
+                            <input id="telp" type="text" value="{{ old('telp') }}" name="telp" placeholder="No. Telp" class="form-control bg-white border-md border-left-0 pl-3 @error('telp') is-invalid @enderror" maxlength="13" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required>
                             @error('telp')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -201,7 +186,7 @@
                                     <i class="fa fa-lock text-muted"></i>
                                 </span>
                             </div>
-                            <input id="password" type="password" name="password" placeholder="Password" class="form-control bg-white border-left-0 border-md @error('password') is-invalid @enderror">
+                            <input id="password" type="password" name="password" placeholder="Password" class="form-control bg-white border-left-0 border-md @error('password') is-invalid @enderror" required>
                             @error('password')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -210,15 +195,12 @@
                         </div>
 
                         <!-- Captcha -->
-                        <div class="input-group col-lg-12 mb-4">
-                            <div class="border-left-0 border-md @error('g-recaptcha-response') is-invalid @enderror"> {!! htmlFormSnippet() !!} </div>
+                        <div class="input-group col-lg-6 mb-4">
+                            <div class="border-right-0 border-md @error('g-recaptcha-response') is-invalid @enderror"> {!! htmlFormSnippet() !!} </div>
                         </div>
 
                         <!-- Submit Button -->
                         <div class="form-group col-lg-12 mx-auto mb-0">
-                            {{-- <a href="#" class="btn btn-primary btn-block py-2">
-                                <span class="font-weight-bold">Create your account</span>
-                            </a> --}}
                             <button type="submit" class="btn btn-primary btn-block py-2">
                                 <span class="font-weight-bold">Daftar Akun</span>
                             </button>
@@ -250,11 +232,6 @@
 
                     </div>
                 </form>
-                @if (Session::has('pesan'))
-                    <div class="alert alert-danger my-2">
-                        {{ Session::get('pesan') }}
-                    </div>
-                @endif
             </div>
         </div>
     </div>
@@ -270,6 +247,13 @@
             $('input, select').on('blur', function () {
                 $(this).parent().find('.input-group-text').css('border-color', '#ced4da');
             });
+        });
+
+        var input = document.querySelector('input[name="nik"]');
+        input.addEventListener('input', function() {
+        if (this.value.length > 16) {
+            this.value = this.value.slice(0, 16);
+        }
         });
     </script>
 </body>

@@ -30,12 +30,17 @@ class PengaduanController extends Controller
 
     public function show($id_pengaduan)
     {
+
+        $kategori = Kategori::all();
+
         // Mengambil data pengaduan dan tanggapan yang saat ini
         $pengaduan = Pengaduan::where('id_pengaduan', $id_pengaduan)->first();
 
         $tanggapan = Tanggapan::where('id_pengaduan', $id_pengaduan)->first();
 
-        $kategori = Kategori::orderBy('id_kategori', 'desc')->get();
+        // $id_kategori = Pengaduan::where('id_kategori', $pengaduan->id_kategori)->first();
+
+        // $kategori = Kategori::where('id_kategori', $id_kategori)->get();
 
         // Tampilan detail pengaduan & compact $pengaduan dan $tanggapan
         return view('Admin.Pengaduan.show', ['pengaduan' => $pengaduan, 'tanggapan' => $tanggapan, 'kategori' => $kategori]);

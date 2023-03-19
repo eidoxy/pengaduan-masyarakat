@@ -21,6 +21,7 @@ class Masyarakat extends Authenticatable
         'username',
         'password',
         'telp',
+        'foto',
         'provider_id',
         'provider',
     ];

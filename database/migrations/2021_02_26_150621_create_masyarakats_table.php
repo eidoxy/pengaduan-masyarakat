@@ -21,6 +21,7 @@ class CreateMasyarakatsTable extends Migration
             $table->string('username', 25)->unique();
             $table->string('password')->nullable();
             $table->string('telp', 13)->nullable();
+            $table->string('foto')->default('user.png');
 
             $table->string('provider_id')->nullable();
             $table->string('provider')->nullable();

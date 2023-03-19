@@ -62,14 +62,11 @@
                     </div>
                     <div class="profile-widget-description">
                         <div class="container">
+                            
                             @if ($errors->any())
                             @foreach ($errors->all() as $error)
                             <div class="alert alert-danger">{{ $error }}</div>
                             @endforeach
-                            @endif
-
-                            @if (Session::has('pengaduan'))
-                            <div class="alert alert-{{ Session::get('type') }}">{{ Session::get('pengaduan') }}</div>
                             @endif
 
                             <div class="card mb-3 shadow-sm">
@@ -85,26 +82,26 @@
                                         <div class="form-group">
                                             <div class="section-title">Judul Laporan</div>
                                             <input type="text" value="{{ old('judul_laporan') }}" name="judul_laporan"
-                                                placeholder="Judul laporan" class="form-control">
+                                                placeholder="Judul laporan" class="form-control" required>
                                         </div>
 
                                         <div class="form-group">
                                             <div class="section-title">Isi Laporan</div>
                                             <textarea name="isi_laporan" placeholder="Isi laporan" class="form-control"
-                                                rows="4">{{ old('isi_laporan') }}</textarea>
+                                                rows="4" required>{{ old('isi_laporan') }}</textarea>
                                         </div>
 
                                         <div class="form-group">
                                             <div class="section-title">Tanggal Kejadian</div>
                                             <input type="text" value="{{ old('tgl_kejadian') }}" name="tgl_kejadian"
                                                 placeholder="Tanggal kejadian" id="tgl_kejadian" class="form-control"
-                                                onfocusin="(this.type='date')" onfocusout="(this.type='text')">
+                                                onfocusin="(this.type='date')" onfocusout="(this.type='text')" required>
                                         </div>
 
                                         <div class="form-group">
                                             <div class="section-title">Lokasi Kejadian</div>
                                             <textarea name="lokasi_kejadian" rows="3" class="form-control"
-                                                placeholder="Lokasi kejadian">{{ old('lokasi_kejadian') }}</textarea>
+                                                placeholder="Lokasi kejadian" required>{{ old('lokasi_kejadian') }}</textarea>
                                         </div>
 
                                         <div class="form-group">
@@ -123,7 +120,7 @@
 
                                         <div class="section-title">Pilih Foto</div>
                                         <div class="custom-file">
-                                            <input name="foto" type="file" class="custom-file-input" id="customFile">
+                                            <input name="foto" type="file" class="custom-file-input" id="customFile" required>
                                             <label class="custom-file-label" for="customFile">Pilih foto</label>
                                         </div>
 
@@ -134,21 +131,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-footer text-center">
-                        {{-- <div class="font-weight-bold mb-2">Follow Ujang On</div>
-                        <a href="#" class="btn btn-social-icon btn-facebook mr-1">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="btn btn-social-icon btn-twitter mr-1">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="btn btn-social-icon btn-github mr-1">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="#" class="btn btn-social-icon btn-instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a> --}}
                     </div>
 
                     <hr>
@@ -223,6 +205,7 @@
 
 @section('js')
     <script>
+        // Membuat fitur between tanggal
         $(function(){
             var dtToday = new Date();
 
@@ -238,5 +221,24 @@
 
             $('#tgl_kejadian').attr('min', minDate);
         });
+
+        // Pengaduan message
+        @if (Session::has('pengaduan_berhasil'))
+            iziToast.show({
+                title: 'Berhasil',
+                message: 'Pengaduan sudah terkirim',
+                position: 'topRight',
+                color: 'green',
+                layout: 2,
+            });
+        @elseif (Session::has('pengaduan_gagal'))
+            iziToast.show({
+                title: 'Gagal',
+                message: 'Pengaduan tidak terkirim',
+                position: 'topRight',
+                color: 'red',
+                layout: 2,
+            });
+        @endif
     </script>
 @endsection

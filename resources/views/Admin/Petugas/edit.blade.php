@@ -78,19 +78,15 @@
                             </center>
                         </form>
                         @if ($petugas->id_petugas != 1)
-                        <form action="{{ route('petugas.destroy', $petugas->id_petugas) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
                             <center>
-                                <button type="submit" class="btn btn-danger mt-2" style="width: 50%" onclick="return confirm('APAKAH YAKIN?')">HAPUS</button>
+                                <button onclick="deleteData('{{ route('petugas.destroy', $petugas->id_petugas) }}')" class="btn btn-danger mt-2" style="width: 50%">HAPUS</button>
                             </center>
-                        </form>
                         @endif
 
                         {{-- Pesan Ketika Error --}}
-                        @if (Session::has('notif'))
+                        @if (Session::has('notif_gagal'))
                             <div class="alert alert-danger">
-                                {{ Session::get('notif') }}
+                                {{ Session::get('notif_gagal') }}
                             </div>
                         @endif
                         @if ($errors->any())
@@ -112,3 +108,60 @@
     </div>
 @endsection
 
+@section('js')
+<script>
+    @if (Session::has('pesan_update'))
+    iziToast.show({
+            title: '!!!',
+            message: 'Akun petugas telah diupdate',
+            position: 'topRight',
+            color: 'green',
+            layout: 2
+        });
+    @endif
+
+    @if (Session::has('notif_gagal'))
+    iziToast.show({
+            title: '!!!',
+            message: 'Tidak dapat dihapus, Petugas ini memiliki relationship!',
+            position: 'topRight',
+            color: 'red',
+            layout: 2
+        });
+    @endif
+
+    // Fungsi delete data
+    function deleteData(url){
+        swal({
+        title: "Apa Anda yakin?",
+            text: "Jika Anda klik OK, maka data petugas akan terhapus!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                $.post(url, {
+                '_token' : $('[name=csrf-token]').attr('content'),
+                '_method' : 'delete',
+            })
+            .done((response) => {
+                swal({
+                title: "Sukses",
+                text: "Data petugas berhasil dihapus!",
+                icon: "success",
+                });
+            })
+            .fail((errors) => {
+                swal({
+                title: "Gagal",
+                text: "Data petugas gagal dihapus!",
+                icon: "error",
+                });
+            })
+            window.location.href = '{{ route('petugas.index') }}';
+            }
+        });
+    }
+</script>
+@endsection

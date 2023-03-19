@@ -23,58 +23,101 @@
                             <h4>Data Profile Anda</h4>
                         </div>
                     </div>
-                    
-                    <div class="col-12 col-lg-2 col-md-2">
-                        <button type="button" class="btn btn-tool btn-warning shadow-sm rounded-pill" data-toggle="modal" data-target="#editModal"><i class="fa fa-pen"></i> Edit Data</button>
-                        {{-- <a href="{{ route('petugas.create') }}" class="btn btn-tool btn-warning shadow-sm rounded-pill"><i class="fa fa-pen"></i> Edit Data</a> --}}
+                </div>
+
+                <div class="card profile-widget">
+                    <div class="profile-widget-header">
+                        <div class="d-flex justify-content-center">
+                            <img alt="image" src="{{ asset('foto/' . Auth::guard('masyarakat')->user()->foto) }}" class="rounded-circle profile-widget-picture">
+                        </div>
+                    </div>
+                    <div class="profile-widget-description mx-5">
+                        
+                        @if (Session::has('currrent_password'))
+                            <div class="alert alert-danger alert-dismissible show fade">
+                                <div class="alert-body">
+                                    {{ Session::get('currrent_password') }}
+                                </div>
+                            </div>
+                        @endif
+                        
+                        <form action="{{ route('profil.update', Auth::guard('masyarakat')->user()->nik) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PATCH')
+
+                        <div class="form-group">
+                            <label>NIK</label>
+                            <input type="number" name="nik" id="nik" value="{{ Auth::guard('masyarakat')->user()->nik}}" class="form-control" disabled>
+                            <div class="invalid-feedback">
+                                Please fill in the first name
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Nama</label>
+                            <input type="text" name="nama" id="nama" value="{{ Auth::guard('masyarakat')->user()->nama}}" class="form-control" required>
+                            <div class="invalid-feedback">
+                                Please fill in the last name
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" name="email" id="email" value="{{ Auth::guard('masyarakat')->user()->email}}" class="form-control" required>
+                            <div class="invalid-feedback">
+                                Please fill in the last name
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" name="username" id="username" value="{{ Auth::guard('masyarakat')->user()->username}}" class="form-control" required>
+                            <div class="invalid-feedback">
+                                Please fill in the last name
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>No Telp</label>
+                            <input type="text" name="telp" id="telp" value="{{ Auth::guard('masyarakat')->user()->telp}}" class="form-control" maxlength="13" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required>
+                            <div class="invalid-feedback">
+                                Please fill in the last name
+                            </div>
+                        </div>
+
+                        <label>Foto</label>
+                        <div class="custom-file mb-3">
+                            <input name="foto" type="file" class="custom-file-input" id="customFile">
+                            <label class="custom-file-label" for="customFile">Pilih foto</label>
+                            <div class="invalid-feedback">
+                                Please fill in the last name
+                            </div>
+                        </div>
+
+                        {{-- <div class="form-group">
+                        <label for="current_password">Password Saat Ini</label>
+                        <input type="password" name="current_password" id="current_password" class="form-control" required>
+                        </div> --}}
+
+                        <div class="form-group">
+                            <label>Password Baru</label>
+                            <input type="password" name="password" id="password" class="form-control">
+                            <div class="invalid-feedback">
+                                Please fill in the last name
+                            </div>
+                        </div>
+                        <center>
+                            <button type="submit" class="btn btn-warning text-white" style="width: 50%">UPDATE</button>
+                        </center>
+                        </form>
                     </div>
                 </div>
-
-                <div class="card-body">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <th>NIK</th>
-                                <td>:</td>
-                                <td>{{ Auth::guard('masyarakat')->user()->nik}}</td>
-                            </tr>
-                            <tr>
-                                <th>Nama</th>
-                                <td>:</td>
-                                <td>{{ Auth::guard('masyarakat')->user()->nama}}</td>
-                            </tr>
-                            <tr>
-                                <th>Email</th>
-                                <td>:</td>
-                                <td>{{ Auth::guard('masyarakat')->user()->email}}</td>
-                            </tr>
-                            <tr>
-                                <th>Username</th>
-                                <td>:</td>
-                                <td>{{ Auth::guard('masyarakat')->user()->username}}</td>
-                            </tr>
-                            <tr>
-                                <th>No Telp</th>
-                                <td>:</td>
-                                <td>{{ Auth::guard('masyarakat')->user()->telp}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                {{-- <div class="card-footer">
-                    <center>
-                        <button type="submit" class="btn btn-warning" style="width: 50%">Edit Data</button>
-                    </center>
-                </div> --}}
-
             </div>
         </div>
         
     </div>
 
 @endsection
-
-@include('User.Profile.edit')
 
 @section('script')
     <script>
@@ -84,5 +127,14 @@
             $('#editModal form')[0].reset();
             $('#editModal form').attr('action', url);
         }
+
+        // Password message tidak sesuai
+        @if (Session::has('current_password'))
+            iziToast.console.error();({
+                    title: '!!!',
+                    message: 'Password anda tidak cocok dengan password sekarang',
+                    position: 'topCenter'
+                });
+        @endif
     </script>
 @endsection

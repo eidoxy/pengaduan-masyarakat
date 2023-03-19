@@ -34,9 +34,9 @@ class MasyarakatController extends Controller
         if (!$pengaduan) {
             $masyarakat->delete();
 
-            return redirect()->route('masyarakat.index');
+            return redirect()->route('masyarakat.index')->with(['notif_sukses' => 'Masyarakat berhasil di hapus']);
         } else {
-            return redirect()->back()->with(['notif' => 'Can\'t delete. Masyarakat has a relationship!']);
+            return redirect()->back()->with(['notif_gagal' => 'Tidak dapat dihapus, masyarakat memiliki relationship!']);
         }
     }
 }

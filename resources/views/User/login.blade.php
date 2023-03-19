@@ -115,10 +115,34 @@
 
             <!-- Registeration Form -->
             <div class="col-md-5 mr-auto col-lg-6">
+
+                @if (Session::has('pesan'))
+                    <div class="alert alert-danger alert-dismissible show fade">
+                        <div class="alert-body">
+                            {{ Session::get('pesan') }}
+                        </div>
+                    </div>
+                @endif
+
+                @if (Session::has('pesan_update'))
+                    <div class="alert alert-success alert-dismissible show fade">
+                        <div class="alert-body">
+                            {{ Session::get('pesan_update') }}
+                        </div>
+                    </div>
+                @endif
+
+                @if (Session::has('pesan_daftar'))
+                    <div class="alert alert-success alert-dismissible show fade">
+                        <div class="alert-body">
+                            {{ Session::get('pesan_daftar') }}
+                        </div>
+                    </div>
+                @endif
+
                 <form class="form" action="{{ route('pekat.login') }}" method="POST">
                 @csrf
                     <div class="row">
-
                         <!-- Username -->
                         <div class="input-group col-lg-12 mb-4">
                             <div class="input-group-prepend">
@@ -129,7 +153,7 @@
                             <input id="username" type="text" value="{{ old('username') }}" name="username" placeholder="Username atau Email" class="form-control bg-white border-left-0 border-md @error('username') is-invalid @enderror">
                             @error('username')
                             <div class="invalid-feedback">
-                                {{ 'pesan_email' }}
+                                {{ $message }}
                             </div>
                             @enderror
                         </div>
@@ -144,7 +168,7 @@
                             <input id="password" type="password" name="password" placeholder="Password" class="form-control bg-white border-left-0 border-md @error('password') is-invalid @enderror">
                             @error('password')
                             <div class="invalid-feedback">
-                                {{ 'pesan_password' }}
+                                {{ $message }}
                             </div>
                             @enderror
                         </div>
@@ -161,30 +185,15 @@
 
                     </div>
                 </form>
-                @if (Session::has('pesan'))
-                    <div class="alert alert-danger my-2">
-                        {{ Session::get('pesan') }}
-                    </div>
-                @endif
-                @if (Session::has('pesan_daftar'))
-                    <div class="alert alert-success my-2">
-                        {{ Session::get('pesan_daftar') }}
-                    </div>
-                @endif
-                @if (Session::has('pesan_logout'))
-                    <div class="alert alert-danger mb-2">
-                        {{ Session::get('pesan_logout') }}
-                    </div>
-                @endif
+
                 <!-- Already Registered -->
                 <div class="row text-center mt-3">
                     <div class="col-lg-6 col-12">
                         <p class="text-muted font-weight-bold float-left"><a href="{{ route('pekat.lapor') }}" class="text-secondary">← Kembali</a></p>
                     </div>
-                    <div class="col-lg-6 col-12">
+                    {{-- <div class="col-lg-6 col-12">
                         <p class="text-muted font-weight-bold float-right"><a href="/password/reset" class="text-primary">Lupa password Anda?</a></p>
-                    </div>
-
+                    </div> --}}
                 </div>
             </div>
 
@@ -205,27 +214,34 @@
             });
         });
 
-        $('.form').on('submit', function(e){
-            if(! e.preventDefault()){
-                $.post($('.form form').attr('action'), $('.form form').serialize())
-                .done((response) => {
-                    $('.form')[0].reset();
-                    iziToast.success({
-                        title: 'Sukses',
-                        message: 'Data berhasil disimpan',
-                        position: 'topRight'
-                    })
-                })
-                .fail((errors) => {
-                    iziToast.error({
-                        title: 'Gagal',
-                        message: 'Data gagal disimpan',
-                        position: 'topRight'
-                    })
-                    return;
-                })
-            }
-        })
+        // Login message
+        @if (Session::has('pesan_gagal_login'))
+        iziToast.success({
+                title: '!!!',
+                message: 'Anda berhasil melakukan login',
+                position: 'topCenter'
+            });
+        @endif
+
+        // Pesan update profile
+        @if (Session::has('pesan_update'))
+        iziToast.success({
+                title: '!!!',
+                message: 'Data telah di update, silahkan login kembali',
+                position: 'topCenter',
+            });
+        @endif
+
+        // Pesan sehabis daftar
+        @if (Session::has('pesan_daftar'))
+        iziToast.show({
+                title: '!!!',
+                message: 'Data telah di update, silahkan login kembali',
+                position: 'topCenter',
+                color: 'green',
+            });
+        @endif
+
     </script>
 </body>
 </html>

@@ -102,7 +102,7 @@ class UserController extends Controller
             if (Auth::guard('masyarakat')->attempt(['username' => $request->username, 'password' => $request->password]))
             {
                 // Jika login berhasil
-                return redirect()->route('pekat.lapor')->with(['pesan' => 'Anda sudah login ke akun']);
+                return redirect()->route('pekat.lapor')->with(['pesan_login' => 'Anda sudah login ke akun']);
             }
             else
             {
@@ -210,7 +210,7 @@ class UserController extends Controller
         Auth::guard('masyarakat')->logout();
 
         // Arahkan ke route pekat.index
-        return redirect()->route('pekat.lapor');
+        return redirect()->route('pekat.lapor')->with(['pesan_logout' => 'Anda sudah logout ke akun']);
     }
 
     public function storePengaduan(Request $request)
@@ -265,12 +265,12 @@ class UserController extends Controller
         if ($pengaduan)
         {
             // Jika mengirim pengaduan berhasil
-            return redirect()->route('pekat.laporan', 'me')->with(['pengaduan' => 'Berhasil terkirim!', 'type' => 'success']);
+            return redirect()->route('pekat.laporan', 'me')->with(['pengaduan_berhasil' => 'Laporan berhasil terkirim!']);
         }
         else
         {
             // Jika mengirim pengaduan gagal
-            return redirect()->back()->with(['pengaduan' => 'Gagal terkirim!', 'type' => 'danger']);
+            return redirect()->back()->with(['pengaduan_gagal' => 'Laporan gagal terkirim!']);
         }
     }
 

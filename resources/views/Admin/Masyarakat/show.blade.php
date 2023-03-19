@@ -76,13 +76,9 @@
                         </table>
                     </div>
                     <div class="card-footer">
-                        <form action="{{ route('masyarakat.destroy', $masyarakat->nik) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
                             <center>
-                                <button type="submit" class="btn btn-danger" style="width: 50%" onclick="return confirm('APAKAH YAKIN?')">HAPUS DATA MASYARAKAT</button>
+                                <button onclick="deleteData('{{ route('masyarakat.destroy', $masyarakat->nik) }}')" class="btn btn-danger" style="width: 50%">HAPUS DATA MASYARAKAT</button>
                             </center>
-                        </form>
                     </div>
                     @if (Session::has('notif'))
                         <div class="alert alert-danger">
@@ -97,4 +93,41 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+<script>
+    function deleteData(url){
+        swal({
+        title: "Apa Anda yakin?",
+            text: "Jika Anda klik OK, maka data masyarakat akan terhapus!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                $.post(url, {
+                '_token' : $('[name=csrf-token]').attr('content'),
+                '_method' : 'delete',
+            })
+            .done((response) => {
+                swal({
+                title: "Sukses",
+                text: "Data masyarkat berhasil dihapus!",
+                icon: "success",
+                });
+            })
+            .fail((errors) => {
+                swal({
+                title: "Gagal",
+                text: "Data masyarkat gagal dihapus!",
+                icon: "error",
+                });
+            })
+            window.location.href = '{{ route('masyarakat.index') }}';
+            }
+        });
+    }
+</script>
 @endsection

@@ -70,5 +70,35 @@
         $(document).ready(function() {
             $('#petugasTable').DataTable();
         } );
+
+        @if (Session::has('pesan_petugas'))
+        iziToast.show({
+                title: 'Sukses',
+                message: 'Akun petugas telah dibuat',
+                position: 'topRight',
+                color: 'green',
+                layout: 2
+            });
+        @endif
+        
+        @if (Session::has('pesan_update'))
+        iziToast.show({
+                title: 'Sukses',
+                message: 'Akun petugas telah diupdate',
+                position: 'topRight',
+                color: 'yellow',
+                layout: 2
+            });
+        @endif
+
+        @if (Session::has('notif_sukses'))
+        iziToast.show({
+                title: 'Sukses',
+                message: 'Petugas berhasil di hapus',
+                position: 'topRight',
+                color: 'red',
+                layout: 2
+            });
+        @endif
     </script>
 @endsection

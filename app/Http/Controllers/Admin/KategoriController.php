@@ -55,7 +55,7 @@ class KategoriController extends Controller
             'nama' => $data['nama'],
         ]);
 
-        return redirect()->route('kategori.index');
+        return redirect()->route('kategori.index')->with(['pesan_tambah' => 'Kategori telah di tambah']);
     }
 
     /**
@@ -106,6 +106,6 @@ class KategoriController extends Controller
 
         $kategori->delete();
 
-        return redirect()->route('kategori.index');
+        return redirect()->route('kategori.index')->with(['pesan' => 'Kategori berhasil dihapus']);
     }
 }

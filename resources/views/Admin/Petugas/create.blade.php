@@ -42,6 +42,30 @@
                     </div>
     
                     <div class="card-body">
+                        @if (Session::has('username'))
+                            <div class="alert alert-danger alert-dismissible show fade">
+                                <div class="alert-body">
+                                    <button class="close" data-dismiss="alert">
+                                        <span>×</span>
+                                    </button>
+                                    {{ Session::get('username') }}
+                                </div>
+                            </div>
+                        @endif
+
+                        @if ($errors->any())
+                            @foreach ($errors->all() as $error)
+                                <div class="alert alert-danger alert-dismissible show fade">
+                                    <div class="alert-body">
+                                        <button class="close" data-dismiss="alert">
+                                            <span>×</span>
+                                        </button>
+                                        {{ $error }}
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+                        
                         <form action="{{ route('petugas.store') }}" method="POST">
                             @csrf
                             <div class="form-group">
@@ -58,7 +82,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="telp">No Telp</label>
-                                <input type="number" name="telp" id="telp" class="form-control" required>
+                                <input type="text" name="telp" id="telp" class="form-control" maxlength="13" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required>
                             </div>
                             <div class="form-group">
                                 <label for="level">Level</label>
@@ -76,20 +100,6 @@
                         </form>
                     </div>
     
-                    @if (Session::has('username'))
-                        <div class="alert alert-danger m-4">
-                            {{ Session::get('username') }}
-                        </div>
-                    @endif
-                    @if ($errors->any())
-                        @foreach ($errors->all() as $error)
-                            <div class="alert alert-danger m-4">
-                                {{ $error }}
-                            </div>
-                        @endforeach
-                    @endif
-                
-                    
                 </div>
             </div>
     
@@ -99,5 +109,19 @@
     
         </div>
     </div>
+@endsection\
+
+@section('js')
+<script>
+    @if (Session::has('notif'))
+        iziToast.show({
+                title: '!!!',
+                message: 'Username telah digunakan',
+                position: 'topRight',
+                color: 'yellow',
+                layout: 2
+            });
+        @endif
+</script>
 @endsection
 

@@ -12,7 +12,7 @@
                 <div class="text-center">
                     <h3 class="mt-3">Edit Data Anda</h3>
                 </div>
-                <form action="{{ route('profile.update', Auth::guard('masyarakat')->user()->nik) }}" method="POST">
+                <form action="{{ route('profil.update', Auth::guard('masyarakat')->user()->nik) }}" method="POST">
                     @csrf
                     @method('PATCH')
 
